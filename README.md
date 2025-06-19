@@ -180,7 +180,7 @@ SELECT
 	WHERE rank=1
 ;
 ```
-13. Calculate how many warranty claims were filed within 180 days of a product sale.
+12. Calculate how many warranty claims were filed within 180 days of a product sale.
 ```
 SELECT 
 COUNT(DISTINCT CASE WHEN w.claim_date - s.sale_date <= 180 THEN w.claim_id END) AS claim_count
@@ -188,7 +188,7 @@ FROM warranty as w
 LEFT JOIN sales as s
 ON w.sale_id = s.sale_id;
 ```
-15. Determine how many warranty claims were filed for products launched in the last two years.
+13. Determine how many warranty claims were filed for products launched in the last two years.
 ```
 SELECT
 	p.product_name,
@@ -204,7 +204,7 @@ GROUP BY 1
 HAVING COUNT(w.claim_id) > 0;
 
 ```
-17. List the months in the last three years where sales exceeded 5,000 units in the USA.
+14. List the months in the last three years where sales exceeded 5,000 units in the USA.
 ```
 SELECT 
 	TO_CHAR(sale_date, 'MM-YYYY') as month,
@@ -217,7 +217,7 @@ AND s.sale_date >= CURRENT_DATE - INTERVAL '3 YEARS'
 GROUP BY 1
 HAVING SUM(s.quantity) > 5000;
 ```
-19. Identify the product category with the most warranty claims filed in the last two years.
+15. Identify the product category with the most warranty claims filed in the last two years.
 ```
 SELECT 
 	c.category_name,
@@ -262,7 +262,7 @@ GROUP BY 1)
 ORDER BY 4 DESC
 ;
 ```
-18. Analyze the year-by-year growth ratio for each store.
+17. Analyze the year-by-year growth ratio for each store.
 ```
 WITH yearly_sales AS
 (
@@ -298,7 +298,7 @@ WHERE last_year_sale IS NOT NULL
 AND YEAR <> EXTRACT(YEAR FROM CURRENT_DATE)
 ;
 ```
-20. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
+18. Calculate the correlation between product price and warranty claims for products sold in the last five years, segmented by price range.
 ```
 SELECT
 	CASE
@@ -317,7 +317,7 @@ ON p.product_id = s.product_id
 WHERE claim_date >= CURRENT_DATE - INTERVAL '5 YEAR'
 GROUP BY 1;
 ```
-22. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
+19. Identify the store with the highest percentage of "Paid Repaired" claims relative to total claims filed.
 ```
 WITH paid_repair AS (
 SELECT
@@ -354,7 +354,7 @@ ON tr.store_id = st.store_id
 ;
 
 ```
-24. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
+20. Write a query to calculate the monthly running total of sales for each store over the past four years and compare trends during this period.
 ```
 WITH monthly_sales AS (
 SELECT
